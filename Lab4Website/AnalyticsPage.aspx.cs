@@ -39,38 +39,47 @@ public partial class AnalyticsPage : System.Web.UI.Page
 
         //loadProfilePicture();
 
+        try
+        {
+
+        }
+        catch(Exception)
+        {
+
+        }
+
 
     }
 
     protected void loadProfilePicture()
     {
-        SqlConnection con = new SqlConnection();
-        con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
-        con.Open();
+        //SqlConnection con = new SqlConnection();
+        //con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
+        //con.Open();
 
-        SqlCommand balance = new SqlCommand("SELECT TotalBalance FROM Employer WHERE EmployerID =" + Convert.ToString((int)Session["EmployerID"]), con);
-        double totalBalance = Convert.ToDouble(balance.ExecuteScalar());
+        //SqlCommand balance = new SqlCommand("SELECT TotalBalance FROM Employer WHERE EmployerID =" + Convert.ToString((int)Session["EmployerID"]), con);
+        //double totalBalance = Convert.ToDouble(balance.ExecuteScalar());
 
-        lblBalance.Text = totalBalance.ToString("$#.00");
+        //lblBalance.Text = totalBalance.ToString("$#.00");
 
-        try
-        {
+        //try
+        //{
 
-            SqlCommand select = new SqlCommand();
-            select.Connection = con;
+        //    SqlCommand select = new SqlCommand();
+        //    select.Connection = con;
 
-            select.CommandText = "SELECT ProfilePicture FROM [dbo].[User] WHERE UserID =" + Convert.ToString((int)Session["UserID"]);
-            string currentPicture = (String)select.ExecuteScalar();
+        //    select.CommandText = "SELECT ProfilePicture FROM [dbo].[User] WHERE UserID =" + Convert.ToString((int)Session["UserID"]);
+        //    string currentPicture = (String)select.ExecuteScalar();
 
-            profilePicture.ImageUrl = "~/Images/" + currentPicture;
-            lblUser.Text = (String)Session["FName"] + " " + (String)Session["LName"];
+        //    profilePicture.ImageUrl = "~/Images/" + currentPicture;
+        //    lblUser.Text = (String)Session["FName"] + " " + (String)Session["LName"];
 
-        }
-        catch (Exception)
-        {
+        //}
+        //catch (Exception)
+        //{
 
-        }
-        con.Close();
+        //}
+        //con.Close();
     }
 
 
