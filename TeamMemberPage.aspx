@@ -5,7 +5,7 @@
 <script type="text/javascript">
         $(document).ready(function(){
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('.modal-trigger').leanModal();
+            $('.modal-trigger').leanModal();
         });
         $(document).ready(function () {
             $('select').material_select();
@@ -41,7 +41,7 @@
                     <asp:ListItem>Your Rewards Received</asp:ListItem>
                     </asp:DropDownList>
             </li>
-            <li><a class="dropdown-button nav1" href="#!" data-activates="dropdown1">Notifications </a></li>
+            <li><a class="dropdown-button nav1" href="" data-activates="dropdown1">Notifications </a></li>
             </ul>
         </div>
     </nav>
@@ -61,7 +61,8 @@
                   
                     <div class="row modal-form-row">
                       <div class="input-field col s12">
-                        <input id="image_url1" type="text" class="validate">
+                        <asp:TextBox runat ="server" ID = "txtUsername"></asp:TextBox>
+                        <%--<input id="image_url1" type="text" class="validate">--%>
                         <label for="image_url1">Team Member Being Rewarded</label>
                     </div>
                   </div>            
@@ -70,16 +71,12 @@
 
 <!-- Select money amount to reward-->
       <div class="input-field col s12">
-                  <%--<select>
-                    <option value="1">$10.00</option>
-                    <option value="2">$25.00</option>
-                    <option value="3">$50.00</option>
-                  </select>--%>
                    <asp:DropDownList ID="ddlRewardValue" runat="server">
                     <asp:ListItem Value="10">$10</asp:ListItem>
                     <asp:ListItem Value="25">$25</asp:ListItem>
                     <asp:ListItem Value="50">$50</asp:ListItem>
                     </asp:DropDownList>
+                    
                   <label>Reward Amount</label>
                 </div>
                 
@@ -101,40 +98,42 @@
                
                    <!-- Select for what catagory -->
                 <div class="input-field col s12">
-                  <select>
-                    <option value="" disabled selected> Creative</option>
-                    <option value="2">Distinguished</option>
-                    <option value="3">Exceptional</option>
-                    <option value="4">Fresh Approach</option>
-                    <option value="5">Superior</option>
-                    <option value="6">Ingenious</option>
-                    <option value="7">Incomparable</option>
-                    <option value="8">Outstanding</option>
-                    <option value="9">Surprising</option>
-                    <option value="10">Symbolic</option>
-                    <option value="11">Unexpected</option>
-                  </select>
+                <asp:DropDownList ID="ddlCategory" runat="server">
+                    <asp:ListItem>Creative</asp:ListItem>
+                    <asp:ListItem>Distinguished</asp:ListItem>
+                    <asp:ListItem>Exceptional</asp:ListItem>
+                    <asp:ListItem>Fresh Approach</asp:ListItem>
+                    <asp:ListItem>Superior</asp:ListItem>
+                    <asp:ListItem>Ingenious</asp:ListItem>
+                    <asp:ListItem>Incomparable</asp:ListItem>
+                    <asp:ListItem>Outstanding</asp:ListItem>
+                    <asp:ListItem>Surprising</asp:ListItem>
+                    <asp:ListItem>Symbolic</asp:ListItem>
+                    <asp:ListItem>Unexpected</asp:ListItem>
+                </asp:DropDownList>
                   <label>Category</label>
                 </div>
             
 
                <div class="row">
-                  <form class="col s12">
+                  
                     <div class="row modal-form-row">
                       <div class="input-field col s12">
-                        <input id="image_url" type="text" class="validate">
+                            <asp:TextBox ID="txtDescription" style="height:200px; width:400px;" placeholder="Description" runat="server" CssClass ="validate"></asp:TextBox>
                         <label for="image_url">Description</label>
                     </div>
                   </div>            
-                </form>
+                
               </div>
 
                <p>
-                    <input type="checkbox" id="test5" />
+                   <asp:CheckBox ID="chkPrivate" runat="server"/>
+                    <%--<input type="checkbox" id="test5" />--%>
                     <label for="test5">Private Transaction</label>
               </p>
               <div class="modal-footer">
-                    <a class=" modal-action modal-close waves-effect waves-green btn-flat">Send Reward!</a>
+                  <asp:Button ID="btnSubmit" CssClass="modal-action modal-close waves-effect waves-green btn-flat" runat="server" Text="Submit Reward" OnClick="btnSubmit_Click" />
+                    <%--<a class=" modal-action modal-close waves-effect waves-green btn-flat">Send Reward!</a>--%>
                   </div>
             </div>
           </div>             

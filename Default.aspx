@@ -13,7 +13,7 @@
                   <asp:TextBox ID="txtPassword" CssClass ="validate" runat="server" placeholder="Password"></asp:TextBox>
                 </li>
                 <li>
-                    <asp:Button ID ="btnLogin" CssClass ="btn waves-effect waves-light" runat="server" Text="Login" OnClick="btnLogin_Click" />
+                    <asp:Button ID ="btnLogin" CssClass ="btn waves-effect waves-light" runat ="server" Text="Login" OnClick="btnLogin_Click" />
                     <asp:Label ID ="lblError" runat ="server" Text ="error label"></asp:Label>
                 </li>
               </ul>
@@ -35,10 +35,7 @@
 			</div>
 </div>
 
-        
-      <!--Import jQuery before materialize.js-->
-      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-      <script type="text/javascript" src="js/materialize.min.js"></script>
+       
     
 
 </asp:Content>
