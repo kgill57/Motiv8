@@ -204,45 +204,37 @@ public partial class RewardTeamMember : System.Web.UI.Page
 
     public void sendNotification()
     {
-        try
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
+
+        con.Open();
+        SqlCommand cmd = new SqlCommand("SELECT Email FROM [User] WHERE Username=@username", con);
+        cmd.Parameters.AddWithValue("@username", drpUsernames.SelectedValue);
+
+        var fromAddress = new MailAddress("sdbasketball96@aol.com", "Elk Logistics Rewards");
+        var toAddress = new MailAddress((String)cmd.ExecuteScalar(), "Test");
+        const string fromPassword = "Daisydoo#1pet";
+        const string subject = "You Received a Reward From a Co-Worker!";
+        const string body = "Dear Team Member, You have received a reward from a fellow Team member. Login to find out who rewarded you!";
+
+
+        var smtp = new SmtpClient
         {
-            SqlConnection con = new SqlConnection();
-            con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
-
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT Email FROM [User] WHERE Username=@username", con);
-            cmd.Parameters.AddWithValue("@username", drpUsernames.SelectedValue);
-
-            var fromAddress = new MailAddress("sdbasketball96@aol.com", "Elk Logistics Rewards");
-            var toAddress = new MailAddress((String)cmd.ExecuteScalar(), "Test");
-            const string fromPassword = "Daisydoo#1pet";
-            const string subject = "You Received a Reward From a Co-Worker!";
-            const string body = "Dear Team Member, You have received a reward from a fellow Team member. Login to find out who rewarded you!";
-
-
-            var smtp = new SmtpClient
-            {
-                Host = "smtp.aol.com",
-                Port = 587,
-                EnableSsl = true,
-                DeliveryMethod = SmtpDeliveryMethod.Network,
-                UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
-            };
-            using (var message = new MailMessage(fromAddress, toAddress)
-            {
-                Subject = subject,
-                Body = body
-            })
-            {
-                smtp.Send(message);
-            }
-        }
-        catch(Exception)
+            Host = "smtp.aol.com",
+            Port = 587,
+            EnableSsl = true,
+            DeliveryMethod = SmtpDeliveryMethod.Network,
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential(fromAddress.Address, fromPassword)
+        };
+        using (var message = new MailMessage(fromAddress, toAddress)
         {
-
+            Subject = subject,
+            Body = body
+        })
+        {
+            smtp.Send(message);
         }
-        
     }
 
 

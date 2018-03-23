@@ -89,7 +89,7 @@ public partial class BuyRewards : System.Web.UI.Page
         }
         if (balance < transactionTotal)
         {
-            lblResult.Text = "insufficient Funds.";
+            lblResult.Text = "Insufficient Funds.";
             valid = false;
         }
         con.Close();
@@ -168,6 +168,7 @@ public partial class BuyRewards : System.Web.UI.Page
 
         con.Close();
 
+        Response.Redirect(Request.RawUrl);
 
     }
 

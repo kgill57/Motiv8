@@ -32,16 +32,17 @@
         <br />
         <br />
         <div>
-            <asp:DropDownList ID="giverAndReceiver" runat="server" OnSelectedIndexChanged="giverAndReceiver_SelectedIndexChanged" AutoPostBack="True" Width="476px">
+            <div class='tableauPlaceholder' id='viz1521817686460' style='position: relative'><noscript><a href='#'><img alt='Admin Dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ad&#47;AdminAnalytics&#47;AdminDashboard&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='AdminAnalytics&#47;AdminDashboard' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Ad&#47;AdminAnalytics&#47;AdminDashboard&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1521817686460');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='1000px';vizElement.style.height='827px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+            <%--<asp:DropDownList ID="giverAndReceiver" runat="server" OnSelectedIndexChanged="giverAndReceiver_SelectedIndexChanged" AutoPostBack="True" Width="476px">
                 <asp:ListItem>Top Rewards Received</asp:ListItem>
                 <asp:ListItem>Top Rewards Given</asp:ListItem>
                 <asp:ListItem>Top Reward Sales</asp:ListItem>
                 <asp:ListItem>Total Rewards by Month</asp:ListItem>
-            </asp:DropDownList>
+            </asp:DropDownList>--%>
         </div>
         <br />
         <div class="container" style="padding-top: -20px;">
-            <asp:Chart ID="rewardsReceived" runat="server" DataSourceID="lab4ConnectionString" Height="489px" Width="1020px"> 
+            <%--<asp:Chart ID="rewardsReceived" runat="server" DataSourceID="lab4ConnectionString" Height="489px" Width="1020px"> 
                 <Series>
                     <asp:Series Name="Series1" XValueMember="UserName" YValueMembers="RewardsReceived"></asp:Series>
                 </Series>
@@ -91,7 +92,7 @@ GROUP BY [Reward].[RewardName]"></asp:SqlDataSource>
             <asp:SqlDataSource ID="SqlDataSource4" runat="server" ConnectionString="<%$ ConnectionStrings:Lab4ConnectionString4 %>" SelectCommand="SELECT Month(TransactionDate) AS Month, SUM(RewardValue) AS [Value]
   FROM [Transaction]
   GROUP BY MONTH(TransactionDate)"></asp:SqlDataSource>
-            <br />
+            <br />--%>
            
             
         </div>
