@@ -273,4 +273,47 @@ public partial class AddRewardProviders : System.Web.UI.Page
         txtNewProviderEmail.Text = "testprovider@gmail.com";
         
     }
+
+
+
+    protected void grdProviders_RowCommand(object sender, GridViewCommandEventArgs e)
+    {
+        GridViewRow gvr = (GridViewRow)(((Button)e.CommandSource).NamingContainer);
+
+        int RowIndex = gvr.RowIndex + 1;
+
+        //int providerID = Convert.ToInt16(grdProviders.Rows[RowIndex].Cells[0].Text);
+
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "SELECT ProviderName, ProviderEmail, ProviderDescription FROM Application WHERE ProviderID = " + RowIndex;
+        cmd.Connection = con;
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        while(reader.Read())
+        {
+            string name = Convert.ToString(reader.GetValue(0));
+            string email = Convert.ToString(reader.GetValue(1));
+            string desc = Convert.ToString(reader.GetValue(2));
+
+            txtCompanyName.Text = name;
+            txtEmail.Text = email;
+            txtDesc.Text = desc;
+        }
+        
+
+        
+
+        appPanel.Visible = true;
+
+
+
+
+
+
+        
+    }
 }

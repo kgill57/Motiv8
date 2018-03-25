@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 public class RewardProvider
 {
@@ -26,9 +29,21 @@ public class RewardProvider
     }
 
     // Getters
-    public int getProviderID()
+    public int getProviderID(int userID)
     {
-        return this.providerID;
+        SqlConnection con = new SqlConnection();
+        con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
+        con.Open();
+
+        SqlCommand cmd = new SqlCommand();
+        cmd.CommandText = "SELECT ProviderID FROM [User] WHERE UserID = " + userID;
+        cmd.Connection = con;
+
+        int providerID = (int)cmd.ExecuteScalar();
+
+        con.Close();
+
+        return providerID;
     }
 
     public String getName()
@@ -46,6 +61,11 @@ public class RewardProvider
         setProviderID(providerID);
         setName(name);
         setEmail(email);
+    }
+
+    public RewardProvider()
+    {
+
     }
 
 }

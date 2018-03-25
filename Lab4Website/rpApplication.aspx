@@ -49,10 +49,11 @@
                         <asp:TextBox ID="txtDesc" runat="server" TextMode="MultiLine" Height="113px" Width="315px"></asp:TextBox>
                     </td>
                     <td>
-                        <asp:Button ID="btnApply" runat="server" Text="Send Application" CssClass="btn" />
+                        <asp:Button ID="btnApply" runat="server" Text="Send Application" CssClass="btn" OnClick="btnApply_Click" />
                     </td>
                 </tr>
             </table>
+            <asp:Label ID="lblResult" runat="server" Text=""></asp:Label>
         </body>
     </html>
 </asp:Content>
