@@ -115,11 +115,11 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Username">
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtgvUsername" runat="server" MaxLength="50" Text='<%# Eval("Username") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtgvUsername" runat="server" MaxLength="50" Text='<%# Eval("NickName") %>'></asp:TextBox>
                         <asp:RequiredFieldValidator ID="reqgvUsername" ControlToValidate="txtgvUsername" Text="(Required)" Display="Dynamic" Runat="server" Font-Bold="True" ForeColor="Red" ValidationGroup="validNewEmp"></asp:RequiredFieldValidator>
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="lblUsername" runat="server" Text='<%# Eval("Username") %>'></asp:Label>
+                        <asp:Label ID="lblUsername" runat="server" Text='<%# Eval("NickName") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Admin">

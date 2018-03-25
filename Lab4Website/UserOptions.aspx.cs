@@ -67,10 +67,10 @@ public partial class UserOptions : System.Web.UI.Page
         select.Connection = con;
 
         // Get the username the admin wants to insert into the database
-        select.CommandText = "SELECT UserName FROM [dbo].[User] WHERE UserName = @UserName";
+        select.CommandText = "SELECT NickName FROM [dbo].[User] WHERE NickName = @NickName";
 
-        select.Parameters.Add(new SqlParameter("@UserName", SqlDbType.VarChar));
-        select.Parameters["@UserName"].Value = txtUsername.Text;
+        select.Parameters.Add(new SqlParameter("@NickName", SqlDbType.VarChar));
+        select.Parameters["@NickName"].Value = txtUsername.Text;
 
         // Check if the desired username is already in the database
         String existingUserName = (String)select.ExecuteScalar();
@@ -97,7 +97,7 @@ public partial class UserOptions : System.Web.UI.Page
             }
 
             // SQL insert statement
-            insertString += "@LName, @Email, @UserName, NULL, " + adminBit + ", " + (int)Session["UserID"] + ", @EmployerID, @AccountBalance, 1, '" + (String)Session["LName"] + "', '2018-01-01')";
+            insertString += "@LName, @Email, @NickName, NULL, " + adminBit + ", 0, " + (int)Session["UserID"] + ", NULL, @EmployerID, @AccountBalance, 1, '" + (String)Session["LName"] + "', '2018-01-01')";
 
             select.CommandText = insertString;
 
@@ -135,7 +135,7 @@ public partial class UserOptions : System.Web.UI.Page
 
             string passwordHashNew =
                        SimpleHash.ComputeHash(password, "MD5", null);
-            select.CommandText = "SELECT [UserID] FROM [USER] WHERE [UserName] = @UserName";
+            select.CommandText = "SELECT [UserID] FROM [USER] WHERE [NickName] = @NickName";
             int userID = (int)select.ExecuteScalar();
             select.CommandText = "INSERT INTO[dbo].[Password] Values (" + userID + ", '" + passwordHashNew + "')";
             select.ExecuteNonQuery();
@@ -176,7 +176,7 @@ public partial class UserOptions : System.Web.UI.Page
             lblBalance.Text = totalBalance.ToString("$#.00");
 
             System.Data.SqlClient.SqlCommand del = new System.Data.SqlClient.SqlCommand("SELECT UserID, FName, LName, MI, Email, " +
-                "Username, Admin, EmployedStatus, AccountBalance FROM [User];", sc);
+                "NickName, Admin, EmployedStatus, AccountBalance FROM [User];", sc);
             del.ExecuteNonQuery();
 
             grdUsers.DataSource = del.ExecuteReader();
@@ -253,7 +253,7 @@ public partial class UserOptions : System.Web.UI.Page
             textError = false;
         }
 
-        if (String.IsNullOrEmpty((grdUsers.Rows[e.RowIndex].FindControl("txtgvUsername") as TextBox).Text.ToString()))
+        if (String.IsNullOrEmpty((grdUsers.Rows[e.RowIndex].FindControl("txtgvNickName") as TextBox).Text.ToString()))
         {
             //projectDescriptionErrror.Visible = true;
             //projectDescriptionErrror.Text = "Field cannot be empty";
@@ -273,7 +273,7 @@ public partial class UserOptions : System.Web.UI.Page
             try
             {
                 System.Data.SqlClient.SqlCommand del = new System.Data.SqlClient.SqlCommand("UPDATE [User] SET FName=@newFName, " +
-                    "LName=@newLName, MI=@newMI, Email=@newEmail, Username=@newUsername, Admin=@newAdmin, EmployedStatus=@employedStatus WHERE UserID=@userID", sc);
+                    "LName=@newLName, MI=@newMI, Email=@newEmail, NickName=@newNickName, Admin=@newAdmin, EmployedStatus=@employedStatus WHERE UserID=@userID", sc);
                 del.Parameters.AddWithValue("@newFName", (char.ToUpper((grdUsers.Rows[e.RowIndex].FindControl("txtgvFName") as TextBox).Text[0])
                     + (grdUsers.Rows[e.RowIndex].FindControl("txtgvFName") as TextBox).Text.Substring(1)));
                 del.Parameters.AddWithValue("@newLName", (char.ToUpper((grdUsers.Rows[e.RowIndex].FindControl("txtgvLName") as TextBox).Text[0])
@@ -291,7 +291,7 @@ public partial class UserOptions : System.Web.UI.Page
                 }
 
                 del.Parameters.AddWithValue("@newEmail", (grdUsers.Rows[e.RowIndex].FindControl("txtgvEmail") as TextBox).Text.ToString());
-                del.Parameters.AddWithValue("@newUsername", (grdUsers.Rows[e.RowIndex].FindControl("txtgvUsername") as TextBox).Text.ToString());
+                del.Parameters.AddWithValue("@newNickName", (grdUsers.Rows[e.RowIndex].FindControl("txtgvNickName") as TextBox).Text.ToString());
                 del.Parameters.AddWithValue("@newAdmin", ddl.SelectedValue);
                 del.Parameters.AddWithValue("@employedStatus", ddlEmployed.SelectedValue);
                 del.Parameters.AddWithValue("@userID", Convert.ToInt32(grdUsers.DataKeys[e.RowIndex].Value.ToString()));

@@ -53,8 +53,11 @@ public partial class LoginPage : System.Web.UI.Page
         String hash = (String)select.ExecuteScalar();
 
         bool admin;
+        bool provider;
         select.CommandText = "(SELECT [Admin] FROM [dbo].[User] WHERE [Email] = @email)";
         admin = Convert.ToBoolean(select.ExecuteScalar());
+        select.CommandText = "(SELECT [RewardProvider] FROM [User] WHERE [Email] = @email)";
+        provider = Convert.ToBoolean(select.ExecuteScalar());
         con.Close();
 
         bool verify = SimpleHash.VerifyHash(password, "MD5", hash);
@@ -66,6 +69,10 @@ public partial class LoginPage : System.Web.UI.Page
             if (admin)
             {
                 Response.Redirect("AdminPage.aspx");
+            }
+            else if(provider)
+            {
+                Response.Redirect("rpRewards.aspx");
             }
             else
             {
@@ -124,6 +131,10 @@ public partial class LoginPage : System.Web.UI.Page
 
         select.CommandText = "SELECT AccountBalance FROM [User] WHERE Email = @email";
         Session["AccountBalance"] = (Convert.ToDecimal(select.ExecuteScalar()));
+
+
+
+
 
 
     }

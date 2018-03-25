@@ -3,7 +3,7 @@
 <%@ Register Assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" Namespace="System.Web.UI.DataVisualization.Charting" TagPrefix="asp" %>
 
 <asp:Content ID="ContentHeader" ContentPlaceHolderID="ContentPlaceHolderHeader" Runat="Server">
-                        <ul class="right hide-on-med-and-down">
+                        <%--<ul class="right hide-on-med-and-down">
                     
                         <li><a href="rewards.html" class="nav2">Current Rewards</a></li>
                         <li><a href="values.html" class="nav2">Company Values</a></li>
@@ -16,8 +16,10 @@
                             </div>
                           </form>
                         </li>
-                      </ul>
-                    </asp:Content>
+                      </ul>--%>
+    
+
+</asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <html>
@@ -47,25 +49,25 @@
 
         </head>
         <body>
-            <div class="navbar-fixed">
+            <%--<div class="navbar-fixed">
                 <nav>
                     <div class="nav-wrapper">
                       
                       <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
-                      
+                      --%>
                     
                         
 
-                      <ul class="side-nav" id="mobile-demo">
+                      <%--<ul class="side-nav" id="mobile-demo">
                         <li><a href="rewards.html">Current Rewards</a></li>
                         <li><a href="values.html">Company Values</a></li>
                       </ul>
                     </div>
                 </nav>
-            </div> <!--End NAV -->
+            </div> <!--End NAV -->--%>
 
             <!-- side nav bar for profile-->
-            <ul id="slide-out" class="side-nav fixed">
+            <%--<ul id="slide-out" class="side-nav fixed">
                   <li><div class="user-view">
                    <img class="circle user" src="images/boss.jpg">
                     <h4 class="user1">Jane Doe<h4>
@@ -78,9 +80,29 @@
                   <li><a class="waves-effect" href="index.html">Logout</a></li>
                   <li><a><i class="material-icons nav1 modal-trigger" data-target="modal4"> help</i></a>
           </ul>
-          <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+          <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>--%>
 
           <!-- featured person-->
+
+            <div style ="position: relative; top: 60px;">
+
+
+                <div style = "float: left; width: 15%;">
+                <ul id="slide-out" class="side-nav fixed" style = "width:15%;">
+                        <li><div class="user-view">
+                            <asp:Image ID ="profilePicture" Height ="120px" Width ="120px" CssClass ="circle user" runat ="server"/>
+                            <asp:Label ID="lblUser" runat="server" Text="" CssClass ="user1"></asp:Label>
+                            <h5 class="user1">Admin</h5>
+                            <asp:Label ID="lblBalance" runat="server" CssClass ="user1"></asp:Label>
+                        </div></li>
+                        <li><a href ="/UserOptions.aspx">User Options</a></li>
+                        <li><a href="/ViewRewards.aspx">View Rewards</a></li>
+                        <li><a href ="/AddRewardProviders.aspx">View Reward Providers</a></li>
+                        <li><a href="AnalyticsPage.aspx">View Analytics</a></li>
+                        <li><a href="/ManageCommunityPost.aspx">Community Events</a></li>
+                        <li><a href="/Default.aspx">Logout</a></li>
+                </ul>
+            </div>
 
           <div class="container featured" style="width:100%">
 

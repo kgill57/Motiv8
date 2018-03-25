@@ -86,6 +86,11 @@
                                     <asp:Label ID="lblgvProviderEmail" runat="server" Text='<%# Eval("ProviderEmail") %>'></asp:Label>
                                 </ItemTemplate>
                             </asp:TemplateField>
+                            <asp:TemplateField HeaderText="Pending Review">
+                                <ItemTemplate>
+                                    <asp:Label ID="lblPendingReview" runat="server" Text='<%# Eval("PendingReview") %>'></asp:Label>
+                                </ItemTemplate>
+                            </asp:TemplateField>
                         </Columns>
                         <EmptyDataTemplate>
                             <asp:Label ID="lvlgvNoProvider" runat="server" Text="No Records Found"></asp:Label>
