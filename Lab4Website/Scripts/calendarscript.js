@@ -230,14 +230,6 @@ $(document).ready(function () {
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
         },
-        customButtons: {
-            customBtn: {
-                text: 'Custom Button',
-                click: function () {
-                    alert('This custom button is hot! 🔥\nNow go have fun!');
-                }
-            }
-        },
         defaultView: 'agendaWeek',
         eventClick: updateEvent,
         selectable: true,

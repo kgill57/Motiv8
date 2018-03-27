@@ -18,8 +18,10 @@
     <style type='text/css'>
         #calendar
         {
-            width: 900px;
+            font-size: large;
+            width: 1200px;
             margin: 0 auto;
+            margin-right: 230px;
         }
         /* css for timepicker */
         .ui-timepicker-div dl
@@ -88,7 +90,7 @@
     </asp:ScriptManager>
     <div id="calendar">
     </div>
-    <div id="updatedialog" style="font: 70% 'Trebuchet MS', sans-serif; margin: 50px; display: none;"
+    <div id="updatedialog" style="font: 90%, sans-serif; margin: 50px; display: none;"
         title="Update or Delete Event">
         <table class="style1">
             <tr>
@@ -117,7 +119,7 @@
             </tr>
         </table>
     </div>
-    <div id="addDialog" style="font: 70% 'Trebuchet MS', sans-serif; margin: 50px;" title="Add Event">
+    <div id="addDialog" style="font: 90% sans-serif; margin: 50px;" title="Add Event">
     <table class="style1">
             <tr>
                 <td class="alignRight">
