@@ -38,7 +38,7 @@ function addSuccess(addResult) {
     // if addresult is -1, means event was not added
     //    alert("added key: " + addResult);
 
-    if (addResult != -1) {
+    if (addResult !== -1) {
         $('#calendar').fullCalendar('renderEvent',
             {
                 title: $("#addEventName").val(),
@@ -123,7 +123,7 @@ function checkForSpecialChars(stringToCheck) {
 function isAllDay(startDate, endDate) {
     var allDay;
 
-    if (startDate.format("HH:mm:ss") == "00:00:00" && endDate.format("HH:mm:ss") == "00:00:00") {
+    if (startDate.format("HH:mm:ss") === "00:00:00" && endDate.format("HH:mm:ss") === "00:00:00") {
         allDay = true;
         globalAllDay = true;
     }
