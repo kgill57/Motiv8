@@ -17,11 +17,19 @@ public partial class Reports : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        Label1.Visible = false;
     }
 
     protected void ChooseReport_SelectedIndexChanged(object sender, EventArgs e)
     {
+        Label2.Visible = false;
+        Label3.Visible = false;
+        Label4.Visible = false;
+        Label5.Visible = false;
+        Label6.Visible = false;
+        Label7.Visible = false;
+        Label8.Visible = false;
+
         if (ChooseReport.SelectedValue == "Employer Report")
         {
             EmployerReport.Visible = true;
