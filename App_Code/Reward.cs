@@ -10,7 +10,7 @@ public class Reward
     private int rewardQuantity;
     private double rewardAmount;
     private int companyID;
-    private int adminID;
+    private String rewardPicture;
     private DateTime dateAdded;
     
     // Setters
@@ -39,9 +39,9 @@ public class Reward
         this.companyID = companyID;
     }
 
-    public void setAdminID(int adminID)
+    public void setRewardPicture(String rewardPicture)
     {
-        this.adminID = adminID;
+        this.rewardPicture = rewardPicture;
     }
 
     public void setDateAdded(DateTime dateAdded)
@@ -75,9 +75,9 @@ public class Reward
         return this.companyID;
     }
 
-    public int getAdminID()
+    public String getRewardPicture()
     {
-        return this.adminID;
+        return this.rewardPicture;
     }
 
     public DateTime getDateAdded()
@@ -90,14 +90,14 @@ public class Reward
 
     }
 
-    public Reward(int rewardID, String rewardName, int rewardQuantity, double rewardAmount, int companyID, int adminID, DateTime dateAdded)
+    public Reward(int rewardID, String rewardName, int rewardQuantity, double rewardAmount, String rewardPicture, int companyID, DateTime dateAdded)
     {
         setRewardID(rewardID);
         setRewardName(rewardName);
         setRewardQuantity(rewardQuantity);
         setRewardAmount(rewardAmount);
         setCompanyID(companyID);
-        setAdminID(adminID);
+        setRewardPicture(rewardPicture);
         setDateAdded(dateAdded);
     }
 }

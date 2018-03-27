@@ -2606,7 +2606,10 @@ samp {
    ========================================================================== */
 /**
  * Known limitation: by default, Chrome and Safari on OS X allow very limited
- * styling of `select`, unless a `border` property is set.
+ * styling of `
+    
+    
+    `, unless a `border` property is set.
  */
 /**
  * 1. Correct color not being inherited.
@@ -7236,11 +7239,6 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::before {
   background-color: #949494;
 }
 
-/* Select Field
-   ========================================================================== */
-select {
-  display: none;
-}
 
 select.browser-default {
   display: block;

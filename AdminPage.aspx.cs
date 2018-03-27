@@ -90,7 +90,7 @@ public partial class AdminPage : System.Web.UI.Page
 
             panelPost[i].Controls.Add(new LiteralControl("<div class=\"col s12 m8 offset-m2 l6 offset-l3 card-panel grey lighten-5 z-depth-1 row valign-wrapper\"> "));
             panelPost[i].Controls.Add(new LiteralControl("<div style = \"float: left; width: 20%\"> <img src = \"images/userprofile3.jpg\" alt = \"\" class=\"circle feed responsive-img\"> </br> <img src=\"images/userprofile.jpg\" alt=\"#\" class=\"circle feed responsive-img\"> </div>"));
-            panelPost[i].Controls.Add(new LiteralControl("<div style = \"float: left; width: 59%\"> <span class=\"black-text\"><strong>" + transaction[i].getGiverUsername(transaction[i].getGiverID()) + "</strong> rewarded <strong>" + transaction[i].getReceiverUsername(transaction[i].getReceiverID()) + "</strong> $" + transaction[i].getRewardValue() + ". </ span > </ div > "));
+            panelPost[i].Controls.Add(new LiteralControl("<div style = \"float: left; width: 59%\"> <span class=\"black-text\"><strong>" + transaction[i].getGiverNickName(transaction[i].getGiverID()) + "</strong> rewarded <strong>" + transaction[i].getReceiverNickName(transaction[i].getReceiverID()) + "</strong> $" + transaction[i].getRewardValue() + ". </ span > </ div > "));
             panelPost[i].Controls.Add(new LiteralControl("<div style = \"float: right; width: 20%\"> <img src = \"" + getValueImageSrc(transaction[i].getValue()) +"\" alt = \"\" class=\"iconforvalue\" width = \"80%\"> </div>"));
             panelPost[i].Controls.Add(new LiteralControl("</div>"));
             
@@ -170,7 +170,6 @@ public partial class AdminPage : System.Web.UI.Page
             //mainPanels[i].Controls.Add(panelHeader[i]);
             //mainPanels[i].Controls.Add(panelPost[i]);
         }
-
         con.Close();
     }
     public static string getValueImageSrc(String value)

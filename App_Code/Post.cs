@@ -128,31 +128,31 @@ public class Post
         return this.receiverID;
     }
 
-    public string getGiverUsername(int giverID)
+    public string getGiverNickName(int giverID)
     {
         SqlConnection con = new SqlConnection();
         con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
 
         con.Open();
 
-        SqlCommand cmd = new SqlCommand("SELECT Username FROM [User] WHERE UserID = @userID", con);
+        SqlCommand cmd = new SqlCommand("SELECT NickName FROM [User] WHERE UserID = @userID", con);
         cmd.Parameters.AddWithValue("@userID", giverID);
 
-        string username = (String)cmd.ExecuteScalar();
-        return username;
+        string NickName = (String)cmd.ExecuteScalar();
+        return NickName;
     }
 
-    public string getReceiverUsername(int receiverID)
+    public string getReceiverNickName(int receiverID)
     {
         SqlConnection con = new SqlConnection();
         con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
         con.Open();
 
-        SqlCommand cmd = new SqlCommand("SELECT Username FROM [User] WHERE UserID = @userID", con);
+        SqlCommand cmd = new SqlCommand("SELECT NickName FROM [User] WHERE UserID = @userID", con);
         cmd.Parameters.AddWithValue("@userID", receiverID);
 
-        string username = (String)cmd.ExecuteScalar();
-        return username;
+        string NickName = (String)cmd.ExecuteScalar();
+        return NickName;
     }
 
     

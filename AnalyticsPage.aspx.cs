@@ -14,10 +14,8 @@ public partial class AnalyticsPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        rewardsGiven.ChartAreas["ChartArea1"].AxisX.Interval = 1;
-        RewardsPerMonth.ChartAreas["ChartArea1"].AxisX.Interval = 1;
-        rewardsReceived.ChartAreas["ChartArea1"].AxisX.Interval = 1;
-        topSales.ChartAreas["ChartArea1"].AxisX.Interval = 1;
+
+
         try
         {
             lblUser.Text = (String)Session["FName"] + " " + (String)Session["LName"];
@@ -27,16 +25,18 @@ public partial class AnalyticsPage : System.Web.UI.Page
             Response.Redirect("Default.aspx");
         }
 
-        if (!IsPostBack)
-        {
-            rewardsReceived.Visible = true;
-            rewardsGiven.Visible = false;
-            topSales.Visible = false;
-            RewardsPerMonth.Visible = false;
 
-        }
 
         loadProfilePicture();
+
+        try
+        {
+
+        }
+        catch(Exception)
+        {
+
+        }
 
 
     }
@@ -74,37 +74,5 @@ public partial class AnalyticsPage : System.Web.UI.Page
 
 
 
-    protected void giverAndReceiver_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        if (giverAndReceiver.SelectedIndex == 0)
-        {
-            rewardsReceived.Visible = true;
-            rewardsGiven.Visible = false;
-            topSales.Visible = false;
-            RewardsPerMonth.Visible = false;
-        }
-
-        else if (giverAndReceiver.SelectedIndex == 1)
-        {
-            rewardsReceived.Visible = false;
-            rewardsGiven.Visible = true;
-            topSales.Visible = false;
-            RewardsPerMonth.Visible = false;
-        }
-        else if(giverAndReceiver.SelectedIndex == 2)
-        {
-            rewardsReceived.Visible = false;
-            rewardsGiven.Visible = false;
-            topSales.Visible = true;
-            RewardsPerMonth.Visible = false;
-        }
-        else if(giverAndReceiver.SelectedIndex == 3)
-        {
-            rewardsReceived.Visible = false;
-            rewardsGiven.Visible = false;
-            topSales.Visible = false;
-            RewardsPerMonth.Visible = true;
-        }
-        
-    }
+    
 }

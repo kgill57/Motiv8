@@ -1,6 +1,135 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="UserOptions.aspx.cs" Inherits="UserOptions" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+
+<asp:Panel ID ="masterPanel" runat ="server">
+
+<div style ="position: relative; top: 60px;">
+
+
+    <div style = "float: left; width: 15%;">
+    <ul id="slide-out" class="side-nav fixed" style = "width:15%;">
+            <li><div class="user-view">
+                <asp:Image ID ="profilePicture" Height ="120px" Width ="120px" CssClass ="circle user" runat ="server"/>
+                <asp:Label ID="lblUser" runat="server" Text="" CssClass ="user1"></asp:Label>
+                <h5 class="user1">Admin</h5>
+                <asp:Label ID="lblBalance" runat="server" CssClass ="user1"></asp:Label>
+            </div></li>
+            <li><a href ="/UserOptions.aspx">User Options</a></li>
+            <li><a href="/ViewRewards.aspx">View Rewards</a></li>
+            <li><a href ="/AddRewardProviders.aspx">View Reward Providers</a></li>
+            <li><a href="AnalyticsPage.aspx">View Analytics</a></li>
+            <li><a href="/ManageCommunityPost.aspx">Community Events</a></li>
+            <li><a href="/Default.aspx">Logout</a></li>
+    </ul>
+    </div>
+ 
+<div style ="float: right; width: 85%;">
+    <div style = "margin-left:auto; margin-right:auto; width:85%;">
+    <nav class="feednav" >
+        <div class="nav-wrapper">
+            <a class="brand-logo nav1 panel">User Management Dashboard</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down"> 
+                <asp:Button ID = "btnInsertUser" CssClass = "btn" Text ="Add User" runat = "server" OnClick ="btnInsertUser_Click"/>
+            </ul>
+        </div>
+    </nav>
+    <div style ="background-color: white;">
+        <asp:GridView ID="grdUsers" class="striped" ValidationGroup="validNewEmp" runat="server" AutoGenerateColumns="False" DataKeyNames="UserID" OnRowCancelingEdit="grdUsers_RowCancelingEdit" OnRowDeleting="grdUsers_RowDeleting" OnRowEditing="grdUsers_RowEditing" OnRowUpdating="grdUsers_RowUpdating">
+            <Columns>
+                <asp:CommandField ShowEditButton="true" CausesValidation="true" ValidationGroup="validNewEmp"/>
+                <asp:TemplateField HeaderText="First Name">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtgvFName" runat="server" MaxLength="30" Text='<%# Eval("FName") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="reqgvFName" ControlToValidate="txtgvFName" Text="(Required)" Display="Dynamic" Runat="server" Font-Bold="True" ForeColor="Red" ValidationGroup="validNewEmp"></asp:RequiredFieldValidator>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblFName" runat="server" Text='<%# Eval("FName") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Last Name">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtgvLName" runat="server" MaxLength="30" Text='<%# Eval("LName") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="reqgvLName" ControlToValidate="txtgvLName" Text="(Required)" Display="Dynamic" Runat="server" Font-Bold="True" ForeColor="Red" ValidationGroup="validNewEmp"></asp:RequiredFieldValidator>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblLName" runat="server" Text='<%# Eval("LName") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="MI">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtgvMI" runat="server" MaxLength="1" Text='<%# Eval("MI") %>'></asp:TextBox>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblMI" runat="server" Text='<%# Eval("MI") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Email">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtgvEmail" runat="server" MaxLength="50" Text='<%# Eval("Email") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="reqgvEmail" ControlToValidate="txtgvEmail" Text="(Required)" Display="Dynamic" Runat="server" Font-Bold="True" ForeColor="Red" ValidationGroup="validNewEmp"></asp:RequiredFieldValidator>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblEmail" runat="server" Text='<%# Eval("Email") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Username">
+                    <EditItemTemplate>
+                        <asp:TextBox ID="txtgvUsername" runat="server" MaxLength="50" Text='<%# Eval("NickName") %>'></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="reqgvUsername" ControlToValidate="txtgvUsername" Text="(Required)" Display="Dynamic" Runat="server" Font-Bold="True" ForeColor="Red" ValidationGroup="validNewEmp"></asp:RequiredFieldValidator>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblUsername" runat="server" Text='<%# Eval("NickName") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Admin">
+                    <EditItemTemplate>
+                        <asp:DropDownList ID="ddlgvAdmin" runat="server" SelectedValue='<%# Bind("Admin") %>'>
+                            <asp:ListItem Value="0">User</asp:ListItem>
+                            <asp:ListItem Value="1">Admin</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="reqgvAdmin" ControlToValidate="ddlgvAdmin" Text="(Required)" Display="Dynamic" Runat="server" Font-Bold="True" ForeColor="Red" ValidationGroup="validNewEmp"></asp:RequiredFieldValidator>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblAdmin" runat="server" Text='<%# Eval("Admin") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Employed Status">
+                    <EditItemTemplate>
+                        <asp:DropDownList ID="drpStatus" runat="server" SelectedValue='<%# Bind("EmployedStatus") %>'>
+                            <asp:ListItem value="1">Employed</asp:ListItem>
+                            <asp:ListItem Value="0">Not Employed</asp:ListItem>
+                        </asp:DropDownList>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblStatus" runat="server" Text='<%# Eval("EmployedStatus") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:TemplateField HeaderText="Account Balance">
+                    <EditItemTemplate>
+                        <asp:Label ID="lblAcctBal" runat="server" Text='<%# Eval("AccountBalance", "{0:c}") %>'></asp:Label>
+                    </EditItemTemplate>
+                    <ItemTemplate>
+                        <asp:Label ID="lblAcctBal" runat="server" Text='<%# Eval("AccountBalance", "{0:c}") %>'></asp:Label>
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+            <EmptyDataTemplate>
+                <asp:Label ID="lblEmptly" runat="server" Text="No Records Available"></asp:Label>
+            </EmptyDataTemplate>
+            </asp:GridView>
+        </div>
+
+    </div>
+</div>
+ 
+<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:lab4ConnectionString %>" SelectCommand="SELECT [CompanyName] FROM [Employer]"></asp:SqlDataSource>    
+</div>
+</asp:Panel>
+</asp:Content>
+
+
+<%--<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     
     <link href="Style/desktop.css" rel="stylesheet" />
     <link href="Style/bootstrap.min.css" rel="stylesheet" />
@@ -115,11 +244,11 @@
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Username">
                     <EditItemTemplate>
-                        <asp:TextBox ID="txtgvUsername" runat="server" MaxLength="50" Text='<%# Eval("Username") %>'></asp:TextBox>
+                        <asp:TextBox ID="txtgvUsername" runat="server" MaxLength="50" Text='<%# Eval("NickName") %>'></asp:TextBox>
                         <asp:RequiredFieldValidator ID="reqgvUsername" ControlToValidate="txtgvUsername" Text="(Required)" Display="Dynamic" Runat="server" Font-Bold="True" ForeColor="Red" ValidationGroup="validNewEmp"></asp:RequiredFieldValidator>
                     </EditItemTemplate>
                     <ItemTemplate>
-                        <asp:Label ID="lblUsername" runat="server" Text='<%# Eval("Username") %>'></asp:Label>
+                        <asp:Label ID="lblUsername" runat="server" Text='<%# Eval("NickName") %>'></asp:Label>
                     </ItemTemplate>
                 </asp:TemplateField>
                 <asp:TemplateField HeaderText="Admin">
@@ -163,9 +292,9 @@
         
 
         
-</center>
+</center>--%>
     
-        
+
                 
                     
                 
@@ -179,5 +308,5 @@
 
     
     
-</asp:Content>
+
 

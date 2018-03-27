@@ -1,32 +1,68 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ViewRewards.aspx.cs" Inherits="ViewRewards" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-    <link href="Style/bootstrap.min.css" rel="stylesheet" />
-    <link href="Style/desktop.css" rel="stylesheet" />
-    <script src="Scripts/Sidebar.js"></script>
-    <div id ="sidebar">
-        <div class="toggle-btn" onclick="toggleSidebar();">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <ul>
-            <li><asp:Image ID ="profilePicture" Height ="120px" Width ="120px" runat ="server"/></li>
-            <li> <asp:Label ID="lblUser" runat="server" Text=""></asp:Label></li>
-            <li><asp:Label ID="lblBalance" runat="server" ></asp:Label></li>
-            <li><a href="AdminPage.aspx">Home</a></li>
-            <li> <a href ="/UserOptions.aspx">User Options</a></li>
-            <li> <a href="/ViewRewards.aspx">View Rewards</a></li>
-            <li> <a href ="/AddRewardProviders.aspx">View Reward Providers</a></li>
-            <li><a href="AnalyticsPage.aspx">View Analytics</a></li>
-            <li><a href="/ManageCommunityPost.aspx">Community Events</a></li>
-            <li><a href="/Default.aspx">Logout</a></li>
+
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+       
+    
+<asp:Panel ID ="masterPanel" runat ="server">
+<div style ="position: relative; top: 60px;">
+
+    <%-- Sidebar --%>
+    <div style = "float: left; width: 15%;">
+        <ul id="slide-out" class="side-nav fixed" style = "width:15%;">
+                <li><div class="user-view">
+                    <asp:Image ID ="profilePicture" Height ="120px" Width ="120px" CssClass ="circle user" runat ="server"/>
+                    <asp:Label ID="lblUser" runat="server" Text="" CssClass ="user1"></asp:Label>
+                    <h5 class="user1">Admin</h5>
+                    <asp:Label ID="lblBalance" runat="server" CssClass ="user1"></asp:Label>
+                </div></li>
+                <li><a href ="/UserOptions.aspx">User Options</a></li>
+                <li><a href="/ViewRewards.aspx">View Rewards</a></li>
+                <li><a href ="/AddRewardProviders.aspx">View Reward Providers</a></li>
+                <li><a href="AnalyticsPage.aspx">View Analytics</a></li>
+                <li><a href="/ManageCommunityPost.aspx">Community Events</a></li>
+                <li><a href="/Default.aspx">Logout</a></li>
         </ul>
     </div>
 
+    <%-- Content --%>
+    <div style ="float: right; width: 85%;">
+        <div style = "margin-left:auto; margin-right:auto; width:85%;">
+        <nav class="feednav" >
+            <div class="nav-wrapper">
+                <a class="brand-logo nav1 panel">Rewards</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down"> 
+                    
     
+                    <asp:Label ID = "lblResult" runat ="server"/>
+                    <%-- Options Here --%>
+                </ul>
+            </div>
+        </nav>
+            <asp:Panel ID ="Panel1" runat="server"></asp:Panel>
+       
+        </div>
+    </div>
+</div>
 
-<center>
+</asp:Panel>
+    <%--<div id="modal1" class="modal">
+        <div class="modal-content">
+            <i class="large material-icons">verified_user </i>
+            <h4 class="redeemed">
+              Reward Has Been Deleted</h4>
+        </div>
+    <div class="modal-footer">
+      <a class=" modal-action modal-close waves-effect waves-green btn-flat">Exit</a>
+    </div>
+  </div>--%>
+
+
+
+
+    
+</asp:Content>
+<%--<center>
     <h1 class="display-4">Reward Options</h1>
     <div class="jumbotron agent-1" style="width:78%; background-color:lightblue; opacity:0.88; border-radius:25px; padding-top:1px;">
         <div style="float:left;">
@@ -109,14 +145,6 @@
                     <asp:Label ID="lblgvProviderID" runat="server" Text='<%# Eval("ProviderID") %>'></asp:Label>
                 </ItemTemplate>                
             </asp:TemplateField>
-            <asp:TemplateField HeaderText="Admin ID">
-                <EditItemTemplate>
-                    <asp:Label ID="txtgvAdminID" ReadOnly="true" runat="server" Text='<%# Eval("AdminID") %>'></asp:Label>
-                </EditItemTemplate>     
-                <ItemTemplate>
-                    <asp:Label ID="lblgvAdminID" runat="server" Text='<%# Eval("AdminID") %>'></asp:Label>
-                </ItemTemplate>
-            </asp:TemplateField>
             <asp:TemplateField HeaderText="Date Added">                   
                 <ItemTemplate>
                     <asp:Label ID="lblgvDateAdded" runat="server" Text='<%# Eval("DateAdded") %>'></asp:Label>
@@ -131,4 +159,4 @@
     </div>
 </center>
     
-</asp:Content>
+</asp:Content>--%>

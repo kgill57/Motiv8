@@ -5,7 +5,7 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li class="input-field col s6">
                   <i class="material-icons prefix">account_circle</i>
-                  <asp:TextBox ID="txtUsername" CssClass ="validate" runat="server" placeholder="Username"></asp:TextBox>
+                  <asp:TextBox ID="txtEmail" CssClass ="validate" runat="server" placeholder="Email"></asp:TextBox>
                 </li>
 
                 <li class="input-field col s6">
@@ -13,14 +13,14 @@
                   <asp:TextBox ID="txtPassword" CssClass ="validate" runat="server" placeholder="Password"></asp:TextBox>
                 </li>
                 <li>
-                    <asp:Button ID ="btnLogin" CssClass ="btn waves-effect waves-light" runat ="server" Text="Login" OnClick="btnLogin_Click" />
+                    <asp:Button ID ="btnLogin" CssClass ="btn" runat="server" Text="Login" OnClick="btnLogin_Click" />
                     <asp:Label ID ="lblError" runat ="server" Text ="error label"></asp:Label>
                 </li>
               </ul>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
               
-               
+     
   
 
 
@@ -35,7 +35,10 @@
 			</div>
 </div>
 
-       
+        
+      <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
     
 
 </asp:Content>

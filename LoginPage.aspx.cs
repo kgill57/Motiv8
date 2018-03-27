@@ -24,7 +24,7 @@ public partial class LoginPage : System.Web.UI.Page
 
     protected void btnLogin_Click(object sender, EventArgs e)
     {
-        String email = txtEmail.Text;
+        String username = txtUsername.Text;
         String password = txtPassword.Text;
 
         SqlConnection con = new SqlConnection();
@@ -34,45 +34,38 @@ public partial class LoginPage : System.Web.UI.Page
         SqlCommand select = new SqlCommand();
         select.Connection = con;
 
+        
+        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@UserName", System.Data.SqlDbType.VarChar));
+        select.Parameters["@UserName"].Value = txtUsername.Text;
 
-        select.Parameters.Add(new System.Data.SqlClient.SqlParameter("@email", System.Data.SqlDbType.VarChar));
-        select.Parameters["@email"].Value = txtEmail.Text;
-
-        select.CommandText = "SELECT EmployedStatus FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT EmployedStatus FROM [User] WHERE Username = @UserName";
 
 
         bool status = Convert.ToBoolean(select.ExecuteScalar());
         if (status == false)
         {
-            lblError.Text = "Email does not exist";
+            lblError.Text = "Username does not exist";
             return;
         }
 
-        select.CommandText = "SELECT [PasswordHash] FROM [dbo].[Password] WHERE [UserID] = (SELECT [UserID] FROM [dbo].[User] WHERE [Email] = @email)";
+        select.CommandText = "SELECT [PasswordHash] FROM [dbo].[Password] WHERE [UserID] = (SELECT [UserID] FROM [dbo].[User] WHERE [UserName] = @UserName)";
 
         String hash = (String)select.ExecuteScalar();
 
         bool admin;
-        bool provider;
-        select.CommandText = "(SELECT [Admin] FROM [dbo].[User] WHERE [Email] = @email)";
+        select.CommandText = "(SELECT [Admin] FROM [dbo].[User] WHERE [UserName] = @UserName)";
         admin = Convert.ToBoolean(select.ExecuteScalar());
-        select.CommandText = "(SELECT [RewardProvider] FROM [User] WHERE [Email] = @email)";
-        provider = Convert.ToBoolean(select.ExecuteScalar());
         con.Close();
 
         bool verify = SimpleHash.VerifyHash(password, "MD5", hash);
 
         if (verify)
         {
-            getUser(txtEmail.Text);
+            getUser(txtUsername.Text);
 
-            if (admin)
+            if(admin)
             {
                 Response.Redirect("AdminPage.aspx");
-            }
-            else if(provider)
-            {
-                Response.Redirect("rpRewards.aspx");
             }
             else
             {
@@ -81,12 +74,12 @@ public partial class LoginPage : System.Web.UI.Page
         }
         else
         {
-            lblError.Text = "Invalid email and/or password.";
+            lblError.Text = "Invalid username and/or password.";
         }
 
     }
 
-    public void getUser(string email)
+    public void getUser(string username)
     {
         SqlConnection con = new SqlConnection();
         con.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
@@ -95,46 +88,42 @@ public partial class LoginPage : System.Web.UI.Page
         SqlCommand select = new SqlCommand();
         select.Connection = con;
 
-        select.Parameters.AddWithValue("@email", email);
+        select.Parameters.AddWithValue("@username", username);
 
-        select.CommandText = "SELECT UserID  FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT UserID  FROM [User] WHERE UserName = @username";
         Session["UserID"] = (int)select.ExecuteScalar();
 
-        select.CommandText = "SELECT FName FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT FName FROM [User] WHERE UserName = @username";
         Session["FName"] = (String)(select.ExecuteScalar());
 
         try
         {
-            select.CommandText = "SELECT MI FROM [User] WHERE Email = @email";
+            select.CommandText = "SELECT MI FROM [User] WHERE UserName = @username";
             Session["MI"] = (String)select.ExecuteScalar();
         }
         catch (Exception)
         {
             Session["MI"] = "";
         }
+        
 
-
-        select.CommandText = "SELECT LName FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT LName FROM [User] WHERE UserName = @username";
         Session["LName"] = (String)(select.ExecuteScalar());
 
-        select.CommandText = "SELECT NickName FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT UserName FROM [User] WHERE UserName = @username";
         Session["UserName"] = (String)(select.ExecuteScalar());
 
-        select.CommandText = "SELECT Email FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT Email FROM [User] WHERE UserName = @username";
         Session["Email"] = (String)(select.ExecuteScalar());
 
-        select.CommandText = "SELECT Admin FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT Admin FROM [User] WHERE UserName = @username";
         Session["Admin"] = Convert.ToInt32(select.ExecuteScalar());
 
-        select.CommandText = "SELECT EmployerID FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT EmployerID FROM [User] WHERE UserName = @username";
         Session["EmployerID"] = (int)(select.ExecuteScalar());
 
-        select.CommandText = "SELECT AccountBalance FROM [User] WHERE Email = @email";
+        select.CommandText = "SELECT AccountBalance FROM [User] WHERE UserName = @username";
         Session["AccountBalance"] = (Convert.ToDecimal(select.ExecuteScalar()));
-
-
-
-
 
 
     }
@@ -171,8 +160,8 @@ public partial class LoginPage : System.Web.UI.Page
         {
             lblError.Text = "This username is already taken";
         }
-
-
+        
+        
         con.Close();
 
     }

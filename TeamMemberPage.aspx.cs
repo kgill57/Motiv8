@@ -103,7 +103,7 @@ public partial class TeamMemberPage : System.Web.UI.Page
             panelPost[i] = new Panel();
             panelPost[i].Controls.Add(new LiteralControl("<div class=\"col s12 m8 offset-m2 l6 offset-l3 card-panel grey lighten-5 z-depth-1 row valign-wrapper\"> "));
             panelPost[i].Controls.Add(new LiteralControl("<div style = \"float: left; width: 20%\"> <img src = \"images/userprofile3.jpg\" alt = \"\" class=\"circle feed responsive-img\"> </br> <img src=\"images/userprofile.jpg\" alt=\"#\" class=\"circle feed responsive-img\"> </div>"));
-            panelPost[i].Controls.Add(new LiteralControl("<div style = \"float: left; width: 59%\"> <span class=\"black-text\"><strong>" + transaction[i].getGiverUsername(transaction[i].getGiverID()) + "</strong> rewarded <strong>" + transaction[i].getReceiverUsername(transaction[i].getReceiverID()) + "</strong> $" + transaction[i].getRewardValue() + ". </ span > </ div > "));
+            panelPost[i].Controls.Add(new LiteralControl("<div style = \"float: left; width: 59%\"> <span class=\"black-text\"><strong>" + transaction[i].getGiverNickName(transaction[i].getGiverID()) + "</strong> rewarded <strong>" + transaction[i].getReceiverNickName(transaction[i].getReceiverID()) + "</strong> $" + transaction[i].getRewardValue() + ". </ span > </ div > "));
             panelPost[i].Controls.Add(new LiteralControl("<div style = \"float: right; width: 20%\"> <img src = \"" + getValueImageSrc(transaction[i].getValue()) + "\" alt = \"\" class=\"iconforvalue\" width = \"80%\"> </div>"));
             panelPost[i].Controls.Add(new LiteralControl("</div>"));
 
@@ -190,114 +190,5 @@ public partial class TeamMemberPage : System.Web.UI.Page
 
         return imgSrc;
     }
-    protected void btnSubmit_Click(object sender, EventArgs e)
-    {
-        //sendNotification();
 
-        Post post = new Post();
-        post.setValue(ddlCompanyValue.SelectedValue);
-        post.setCategory(ddlCategory.SelectedValue);
-        post.setDescription(txtDescription.Text);
-        post.setRewardValue(Convert.ToDouble(ddlRewardValue.SelectedValue));
-        post.setPostDate(DateTime.Now);
-        post.setGiverID((int)Session["UserID"]);
-
-        if (Convert.ToByte(chkPrivate.Checked) == 0)
-        {
-            post.setIsPrivate(false);
-        }
-
-        else if (Convert.ToByte(chkPrivate.Checked) == 1)
-        {
-            post.setIsPrivate(true);
-        }
-
-        try
-        {
-            System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
-            sc.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
-
-            sc.Open();
-
-            System.Data.SqlClient.SqlCommand cmdInsert = new System.Data.SqlClient.SqlCommand();
-            cmdInsert.Connection = sc;
-
-
-            if (checkTransactionDate(post.getGiverID()) == true)
-            {
-
-                cmdInsert.CommandText = "INSERT INTO [dbo].[Transaction] (CompanyValue, Category, Description, RewardValue, TransactionDate,"
-                    + " Private, GiverID, ReceiverID) VALUES (@CompanyValue, @Category, @Description, @RewardValue, @TransactionDate, @Private," +
-                    " @GiverID, @ReceiverID)";
-                cmdInsert.Parameters.AddWithValue("@CompanyValue", post.getValue());
-                cmdInsert.Parameters.AddWithValue("@Category", post.getCategory());
-                cmdInsert.Parameters.AddWithValue("@Description", post.getDescription());
-                cmdInsert.Parameters.AddWithValue("@RewardValue", post.getRewardValue());
-                cmdInsert.Parameters.AddWithValue("@TransactionDate", post.getPostDate());
-                cmdInsert.Parameters.AddWithValue("@Private", post.getIsPrivate());
-                cmdInsert.Parameters.AddWithValue("@GiverID", (int)Session["UserID"]);
-                cmdInsert.Parameters.AddWithValue("@ReceiverID", getRecieverID(txtUsername.Text));
-
-                cmdInsert.ExecuteNonQuery();
-
-
-                //lblResult.Text = "Reward Sent.";
-
-
-                sc.Close();
-
-            }
-        }
-        catch (Exception)
-        {
-
-        }
-    }
-    public Boolean checkTransactionDate(int giverID)
-    {
-
-        Boolean valid = true;
-        System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
-        sc.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
-        sc.Open();
-
-        System.Data.SqlClient.SqlCommand cmdInsert = new System.Data.SqlClient.SqlCommand();
-        cmdInsert.Connection = sc;
-
-        cmdInsert.CommandText = "SELECT TransactionDate FROM [Transaction] WHERE TransID = (SELECT MAX(TransID) FROM [Transaction] WHERE GiverID=@giverID)";
-        cmdInsert.Parameters.AddWithValue("@giverID", giverID);
-        DateTime transDate = Convert.ToDateTime(cmdInsert.ExecuteScalar());
-
-        System.Diagnostics.Debug.WriteLine(transDate);
-        DateTime today = DateTime.Today.Date;
-        if (transDate.Date == today)
-        {
-            //lblResult.Text = "Cannot make 2 transactions in one day.";
-            valid = false;
-        }
-        sc.Close();
-
-
-        return valid;
-    }
-    public int getRecieverID(String username)
-    {
-        System.Data.SqlClient.SqlConnection sc = new System.Data.SqlClient.SqlConnection();
-        sc.ConnectionString = ConfigurationManager.ConnectionStrings["lab4ConnectionString"].ConnectionString;
-
-        sc.Open();
-
-        System.Data.SqlClient.SqlCommand cmdInsert = new System.Data.SqlClient.SqlCommand();
-        cmdInsert.Connection = sc;
-        cmdInsert.CommandText = "SELECT UserID FROM [User] WHERE Username = @username";
-
-        cmdInsert.Parameters.AddWithValue("@username", username);
-
-        int userID = (int)cmdInsert.ExecuteScalar();
-
-        sc.Close();
-        return userID;
-    }
 }
-
-
